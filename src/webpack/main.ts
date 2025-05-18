@@ -1,4 +1,4 @@
-import { Cat } from "./pets";
+import { Cat } from "./pets/Cat";
 
 console.log("Loaded main");
 // Declare game as global for TS

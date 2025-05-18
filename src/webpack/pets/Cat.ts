@@ -2,15 +2,7 @@ import { Animation } from "../Animation";
 import { Pet } from "../pets";
 
 export class Cat extends Pet {
-  override anims: {
-    moveDown: Animation;
-    moveRight: Animation;
-    moveUp: Animation;
-    moveLeft: Animation;
-    idle: Animation;
-    special: Animation;
-    sleep: Animation | Animation[];
-  } = {
+  override anims = {
     moveDown: new Animation(
       [
         [0, 0],
