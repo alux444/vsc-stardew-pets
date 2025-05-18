@@ -9,15 +9,46 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:vscode-stardew-pets.addPet",
+    "onCommand:vscode-stardew-pets.removePet",
+    "onCommand:vscode-stardew-pets.openPetsFile",
+    "onCommand:vscode-stardew-pets.reloadPetsFile"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "vscode-stardew-pets.helloWorld",
-        "title": "Hello World"
+        "command": "vscode-stardew-pets.addPet",
+        "title": "Add Stardew Pet",
+        "category": "Stardew Pets"
+      },
+      {
+        "command": "vscode-stardew-pets.removePet",
+        "title": "Remove Stardew Pet",
+        "category": "Stardew Pets"
+      },
+      {
+        "command": "vscode-stardew-pets.openPetsFile",
+        "title": "Open Stardew Pets File",
+        "category": "Stardew Pets"
+      },
+      {
+        "command": "vscode-stardew-pets.reloadPetsFile",
+        "title": "Reload Stardew Pets",
+        "category": "Stardew Pets"
       }
-    ]
+    ],
+    "views": {
+      "explorer": [
+        {
+          "type": "webview",
+          "icon": "media/pet-icon.svg",
+          "id": "stardew-pets",
+          "name": "Stardew Pets"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
@@ -31,7 +62,8 @@
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "build:webview": "esbuild src/webpack/main.ts --bundle --outfile=dist/main.js --format=iife && esbuild src/webpack/pets.ts --bundle --outfile=dist/pets.js --format=iife && esbuild src/webpack/util.ts --bundle --outfile=dist/util.js --format=iife"
   },
   "devDependencies": {
     "@types/vscode": "^1.100.0",

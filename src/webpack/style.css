@@ -1,0 +1,71 @@
+/* html */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  overflow: hidden;
+  image-rendering: pixelated;
+
+  --scale: 1;
+}
+
+#pets,
+#pets[background="grass"] {
+  width: calc(100% / var(--scale));
+  height: calc(100% / var(--scale));
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  transform-origin: 0% 0%;
+
+  transform: scale(var(--scale));
+  background-repeat: repeat;
+  background: url(../../media/backgrounds/grass.png);
+}
+
+/* base class for pets */
+.pet {
+  --size: 32px;
+  width: var(--size);
+  height: var(--size);
+
+  position: absolute;
+  --position-x: 0px;
+  --position-y: 0px;
+  left: var(--position-x);
+  top: var(--position-y);
+
+  --image: url(../../media/pets/cat/black.png);
+  background-image: var(--image);
+  --offset-x: 0px;
+  --offset-y: 0px;
+  background-position-x: var(--offset-x);
+  background-position-y: var(--offset-y);
+
+  --emoteSize: 9px;
+  --emoteElevation: 0px;
+  --emote-x: 0px;
+  --emote-y: 0px;
+}
+
+.pet[flip] {
+  transform: scale(-1, 1);
+}
+
+/* cats */
+.cat,
+.cat[color="black"] {
+  --size: 32px;
+  transform: scale(2);
+  --emoteElevation: -9px;
+  --image: url(../../media/pets/cat/black.png);
+  background-image: var(--image);
+  background-size: auto; 
+  background-repeat: no-repeat;
+  background-position-x: var(--offset-x);
+  background-position-y: var(--offset-y);
+  image-rendering: pixelated;
+}

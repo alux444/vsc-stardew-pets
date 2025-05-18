@@ -1,0 +1,267 @@
+import { Vec2, clamp, random } from "./util";
+import { AI } from "./AI";
+import { Animation } from "./Animation";
+
+export class Pet {
+  #init: boolean = false;
+  #name: string = "Pet";
+  get name(): string {
+    return this.#name;
+  }
+
+  #petType: string = "";
+  get petType(): string {
+    return this.#petType;
+  }
+
+  #color: string = "Pet";
+  get color(): string {
+    return this.#color;
+  }
+
+  #pos: Vec2 = new Vec2(0, 0);
+  get pos(): Vec2 {
+    return this.#pos;
+  }
+
+  #ai!: AI;
+  get ai(): AI {
+    return this.#ai;
+  }
+
+  #element!: HTMLElement;
+  get element(): HTMLElement {
+    return this.#element;
+  }
+  size: Vec2 = new Vec2(32, 32);
+
+  #anim?: Animation;
+  anims: { [key: string]: Animation | Animation[] } = {
+    moveDown: new Animation(
+      [
+        [0, 0],
+        [1, 0],
+        [2, 0],
+        [3, 0],
+      ],
+      5
+    ),
+    moveRight: new Animation(
+      [
+        [0, 1],
+        [1, 1],
+        [2, 1],
+        [3, 1],
+      ],
+      5
+    ),
+    moveLeft: new Animation(
+      [
+        [0, 1],
+        [1, 1],
+        [2, 1],
+        [3, 1],
+      ],
+      5,
+      { flip: true }
+    ),
+    moveUp: new Animation(
+      [
+        [0, 2],
+        [1, 2],
+        [2, 2],
+        [3, 2],
+      ],
+      5
+    ),
+    idle: new Animation([[0, 0]], 5, { loop: false }),
+    sleep: new Animation(
+      [
+        [0, 3],
+        [1, 3],
+      ],
+      30,
+      { loop: false }
+    ),
+    special: new Animation(
+      [
+        [0, 4],
+        [1, 4],
+        [2, 4],
+        [3, 4],
+        [2, 4],
+        [1, 4],
+        [0, 4],
+        [0, 0],
+      ],
+      5,
+      { loop: false }
+    ),
+  };
+
+  constructor(name: string, color: string) {
+    this.#name = name;
+    this.#color = color;
+  }
+
+  init(petType: string, aiOptions?: Record<string, unknown>): void {
+    if (this.#init) return;
+    if (petType === "") return;
+    this.#petType = petType;
+    const element = document.createElement("div");
+    // @ts-expect-error: game is global in the webview context
+    game.div.appendChild(element);
+    this.#element = element;
+    element.classList.add("pet");
+    element.classList.add(this.petType);
+    element.setAttribute("color", this.#color);
+    this.respawn();
+    this.#ai = new AI(this, aiOptions);
+    // @ts-expect-error: game is global in the webview context
+    game.pets.push(this);
+    this.#init = true;
+  }
+
+  update(): void {
+    this.#ai.update();
+    if (this.#anim !== undefined) this.#selectSprite(this.#anim.update());
+  }
+
+  animate(name: string, force: boolean = false): void {
+    if (typeof this.anims[name] !== "object") return;
+    let anim = this.anims[name];
+    if (Array.isArray(anim)) anim = anim[random(anim.length - 1)];
+    if (anim === this.#anim && !force) return;
+    this.#anim = anim as Animation;
+    this.#anim.reset();
+    if (this.#anim.flip) this.element.setAttribute("flip", "");
+    else this.element.removeAttribute("flip");
+  }
+
+  #selectSprite(offset: [number, number]): void {
+    this.#element.style.setProperty("--offset-x", -(offset[0] * this.size.x) + "px");
+    this.#element.style.setProperty("--offset-y", -(offset[1] * this.size.y) + "px");
+  }
+
+  get maxX(): number {
+    // @ts-expect-error: game is global in the webview context
+    return Math.floor(game.width / game.scale - this.size.x);
+  }
+  get maxY(): number {
+    // @ts-expect-error: game is global in the webview context
+    return Math.floor(game.height / game.scale - this.size.y);
+  }
+  get randomPoint(): Vec2 {
+    return new Vec2(random(this.maxX), random(this.maxY));
+  }
+
+  moveTo(x: number | Vec2, y?: number): void {
+    if (typeof x === "object") {
+      y = x.y;
+      x = x.x;
+    }
+    x = clamp(x, 0, this.maxX);
+    y = clamp(y!, 0, this.maxY);
+    this.#pos.x = x;
+    this.#pos.y = y;
+    this.#element.style.setProperty("--position-x", x + "px");
+    this.#element.style.setProperty("--position-y", y + "px");
+    this.#element.style.zIndex = String(y + this.size.y);
+  }
+
+  respawn(): void {
+    this.moveTo(this.randomPoint);
+  }
+}
+
+class PetSmall extends Pet {
+  size: Vec2 = new Vec2(16, 16);
+  constructor(name: string, color: string) {
+    super(name, color);
+  }
+}
+
+export class Cat extends Pet {
+  override anims: { [key: string]: Animation | Animation[] } = {
+    moveDown: new Animation(
+      [
+        [0, 0],
+        [1, 0],
+        [2, 0],
+        [3, 0],
+      ],
+      5
+    ),
+    moveRight: new Animation(
+      [
+        [0, 1],
+        [1, 1],
+        [2, 1],
+        [3, 1],
+      ],
+      5
+    ),
+    moveUp: new Animation(
+      [
+        [0, 2],
+        [1, 2],
+        [2, 2],
+        [3, 2],
+      ],
+      5
+    ),
+    moveLeft: new Animation(
+      [
+        [0, 3],
+        [1, 3],
+        [2, 3],
+        [3, 3],
+      ],
+      5
+    ),
+    idle: new Animation(
+      [
+        [0, 4],
+        [1, 4],
+        [2, 4],
+      ],
+      5,
+      { loop: false }
+    ),
+    special: new Animation(
+      [
+        [0, 5],
+        [1, 5],
+        [2, 5],
+        [3, 5],
+        [0, 5],
+        [2, 4],
+      ],
+      5,
+      { loop: false }
+    ),
+    sleep: [
+      new Animation(
+        [
+          [0, 7],
+          [1, 7],
+        ],
+        30
+      ),
+      new Animation(
+        [
+          [0, 6],
+          [1, 6],
+          [2, 6],
+          [3, 6],
+        ],
+        5,
+        { loop: false }
+      ),
+    ],
+  };
+  constructor(name: string, color: string) {
+    super(name, color);
+    this.init("cat");
+  }
+}
