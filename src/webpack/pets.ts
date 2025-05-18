@@ -2,6 +2,90 @@ import { Vec2, clamp, random } from "./util";
 import { AI } from "./AI";
 import { Animation } from "./Animation";
 
+export interface AnimationOptions {
+  moveDown?: Animation;
+  moveRight?: Animation;
+  moveUp?: Animation;
+  moveLeft?: Animation;
+  idle?: Animation;
+  special?: Animation;
+  sleep?: Animation | Animation[];
+}
+
+function isAnimationKey(key: string): key is keyof AnimationOptions {
+  return key === "moveDown" || key === "moveRight" || key === "moveUp" || key === "moveLeft" || key === "idle" || key === "special" || key === "sleep";
+}
+
+const DEFAULT_ANIMATION_OPTIONS: AnimationOptions = {
+  moveDown: new Animation(
+    [
+      [0, 0],
+      [1, 0],
+      [2, 0],
+      [3, 0],
+    ],
+    5
+  ),
+  moveRight: new Animation(
+    [
+      [0, 1],
+      [1, 1],
+      [2, 1],
+      [3, 1],
+    ],
+    5
+  ),
+  moveLeft: new Animation(
+    [
+      [0, 1],
+      [1, 1],
+      [2, 1],
+      [3, 1],
+    ],
+    5,
+    { flip: true }
+  ),
+  moveUp: new Animation(
+    [
+      [0, 2],
+      [1, 2],
+      [2, 2],
+      [3, 2],
+    ],
+    5
+  ),
+  idle: new Animation([[0, 0]], 5, { loop: false }),
+  sleep: new Animation(
+    [
+      [0, 3],
+      [1, 3],
+    ],
+    30,
+    { loop: false }
+  ),
+  special: new Animation(
+    [
+      [0, 4],
+      [1, 4],
+      [2, 4],
+      [3, 4],
+      [2, 4],
+      [1, 4],
+      [0, 4],
+      [0, 0],
+    ],
+    5,
+    { loop: false }
+  ),
+};
+
+export interface PetOptions {
+  name: string;
+  color: string;
+  petType: string;
+  aiOptions?: Record<string, unknown>;
+}
+
 export class Pet {
   #init: boolean = false;
   #name: string = "Pet";
@@ -36,68 +120,7 @@ export class Pet {
   size: Vec2 = new Vec2(32, 32);
 
   #anim?: Animation;
-  anims: { [key: string]: Animation | Animation[] } = {
-    moveDown: new Animation(
-      [
-        [0, 0],
-        [1, 0],
-        [2, 0],
-        [3, 0],
-      ],
-      5
-    ),
-    moveRight: new Animation(
-      [
-        [0, 1],
-        [1, 1],
-        [2, 1],
-        [3, 1],
-      ],
-      5
-    ),
-    moveLeft: new Animation(
-      [
-        [0, 1],
-        [1, 1],
-        [2, 1],
-        [3, 1],
-      ],
-      5,
-      { flip: true }
-    ),
-    moveUp: new Animation(
-      [
-        [0, 2],
-        [1, 2],
-        [2, 2],
-        [3, 2],
-      ],
-      5
-    ),
-    idle: new Animation([[0, 0]], 5, { loop: false }),
-    sleep: new Animation(
-      [
-        [0, 3],
-        [1, 3],
-      ],
-      30,
-      { loop: false }
-    ),
-    special: new Animation(
-      [
-        [0, 4],
-        [1, 4],
-        [2, 4],
-        [3, 4],
-        [2, 4],
-        [1, 4],
-        [0, 4],
-        [0, 0],
-      ],
-      5,
-      { loop: false }
-    ),
-  };
+  anims: AnimationOptions = DEFAULT_ANIMATION_OPTIONS;
 
   constructor(name: string, color: string) {
     this.#name = name;
@@ -128,7 +151,7 @@ export class Pet {
   }
 
   animate(name: string, force: boolean = false): void {
-    if (typeof this.anims[name] !== "object") return;
+    if (!isAnimationKey(name)) return;
     let anim = this.anims[name];
     if (Array.isArray(anim)) anim = anim[random(anim.length - 1)];
     if (anim === this.#anim && !force) return;
@@ -178,90 +201,5 @@ class PetSmall extends Pet {
   size: Vec2 = new Vec2(16, 16);
   constructor(name: string, color: string) {
     super(name, color);
-  }
-}
-
-export class Cat extends Pet {
-  override anims: { [key: string]: Animation | Animation[] } = {
-    moveDown: new Animation(
-      [
-        [0, 0],
-        [1, 0],
-        [2, 0],
-        [3, 0],
-      ],
-      5
-    ),
-    moveRight: new Animation(
-      [
-        [0, 1],
-        [1, 1],
-        [2, 1],
-        [3, 1],
-      ],
-      5
-    ),
-    moveUp: new Animation(
-      [
-        [0, 2],
-        [1, 2],
-        [2, 2],
-        [3, 2],
-      ],
-      5
-    ),
-    moveLeft: new Animation(
-      [
-        [0, 3],
-        [1, 3],
-        [2, 3],
-        [3, 3],
-      ],
-      5
-    ),
-    idle: new Animation(
-      [
-        [0, 4],
-        [1, 4],
-        [2, 4],
-      ],
-      5,
-      { loop: false }
-    ),
-    special: new Animation(
-      [
-        [0, 5],
-        [1, 5],
-        [2, 5],
-        [3, 5],
-        [0, 5],
-        [2, 4],
-      ],
-      5,
-      { loop: false }
-    ),
-    sleep: [
-      new Animation(
-        [
-          [0, 7],
-          [1, 7],
-        ],
-        30
-      ),
-      new Animation(
-        [
-          [0, 6],
-          [1, 6],
-          [2, 6],
-          [3, 6],
-        ],
-        5,
-        { loop: false }
-      ),
-    ],
-  };
-  constructor(name: string, color: string) {
-    super(name, color);
-    this.init("cat");
   }
 }
