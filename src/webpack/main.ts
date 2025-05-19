@@ -1,3 +1,4 @@
+import { Pet } from "./pets";
 import { Cat } from "./pets/Cat";
 
 console.log("Loaded main");
@@ -15,7 +16,7 @@ const game = {
   scale: 2,
   frames: 0,
   fps: 30,
-  pets: [] as any[],
+  pets: [] as Pet[],
 };
 window.game = game;
 console.log("Loaded frame");
