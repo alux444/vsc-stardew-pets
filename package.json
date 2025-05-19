@@ -9,12 +9,7 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [
-    "onCommand:vscode-stardew-pets.addPet",
-    "onCommand:vscode-stardew-pets.removePet",
-    "onCommand:vscode-stardew-pets.openPetsFile",
-    "onCommand:vscode-stardew-pets.reloadPetsFile"
-  ],
+  "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
@@ -26,6 +21,11 @@
       {
         "command": "vscode-stardew-pets.removePet",
         "title": "Remove Stardew Pet",
+        "category": "Stardew Pets"
+      },
+      {
+        "command": "vscode-stardew-pets.removeAllPets",
+        "title": "Remove All Stardew Pets",
         "category": "Stardew Pets"
       },
       {

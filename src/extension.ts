@@ -17,7 +17,7 @@ type Pet = {
   name: string;
   color: string;
 };
-let pets = new Array<Pet>();
+let pets: Pet[] = [];
 
 class PetItem implements vscode.QuickPickItem {
   public index: number;
@@ -40,10 +40,10 @@ function loadPetsFile() {
     try {
       pets = JSON.parse(fs.readFileSync(petsPath, "utf8"));
       if (!Array.isArray(pets)) {
-        pets = new Array<Pet>();
+        pets = [];
       }
     } catch (e) {
-      pets = new Array<Pet>();
+      pets = [];
     }
   } else {
     savePets();
@@ -166,6 +166,20 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.window.showInformationMessage(`Bye ${pet.label} :(`);
   });
 
+  const commandRemoveAllPets = vscode.commands.registerCommand("vscode-stardew-pets.removeAllPets", async () => {
+    let petNames: string[] = [];
+    for (let i = pets.length - 1; i >= 0; i--) {
+      petNames.push(pets[i].name);
+      removePet(i, false);
+    }
+    pets = [];
+    savePets();
+    webview.postMessage({
+      type: "removeAll",
+    });
+    vscode.window.showInformationMessage(`Bye ${petNames.join(", ")} :(`);
+  });
+
   const commandOpenPetsFile = vscode.commands.registerCommand("vscode-stardew-pets.openPetsFile", async () => {
     const uri = vscode.Uri.file(petsPath);
     await vscode.env.openExternal(uri);
@@ -182,7 +196,7 @@ export function activate(context: vscode.ExtensionContext) {
     }
   });
 
-  context.subscriptions.push(commandAddPet, commandRemovePet, commandOpenPetsFile, commandReloadPetsFile);
+  context.subscriptions.push(commandAddPet, commandRemovePet, commandOpenPetsFile, commandRemoveAllPets, commandReloadPetsFile);
 }
 
 export function deactivate() {
