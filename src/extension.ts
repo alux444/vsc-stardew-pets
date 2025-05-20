@@ -12,10 +12,11 @@ const PET_TYPES: { [key: string]: string[] } = {
 
 let petsPath: string;
 
-type Pet = {
+export type Pet = {
   petType: string;
   name: string;
   color: string;
+  timesPetted: number;
 };
 let pets: Pet[] = [];
 
@@ -61,7 +62,17 @@ function loadPet(pet: Pet) {
     petType: pet.petType,
     name: pet.name,
     color: pet.color,
+    timesPetted: pet.timesPetted,
   });
+}
+
+export function petPetted(pet: Pet) {
+  // call in the Pet instance already updates the timesPetted
+  const idx = pets.findIndex((p) => p.name === pet.name && p.color === pet.color && p.petType === pet.petType);
+  if (idx !== -1) {
+    pets[idx].timesPetted = pet.timesPetted;
+    savePets();
+  }
 }
 
 function addPet(pet: Pet) {
@@ -147,6 +158,7 @@ export function activate(context: vscode.ExtensionContext) {
       petType: pet,
       name,
       color: variant,
+      timesPetted: 0,
     });
 
     vscode.window.showInformationMessage(`Hi ${name} :)`);
@@ -228,6 +240,10 @@ export class PetViewProvider implements vscode.WebviewViewProvider {
         case "info":
           vscode.window.showInformationMessage(message.text);
           break;
+        case "petPetted":
+          vscode.window.showInformationMessage(`You petted ${message.pet.name} ${message.pet.timesPetted} times`);
+          petPetted(message.pet);
+          break;
         case "init":
           webview.postMessage({
             type: "background",
@@ -245,10 +261,7 @@ export class PetViewProvider implements vscode.WebviewViewProvider {
 
   private getHtmlContent(webview: vscode.Webview): string {
     const style = webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, "src", "webpack", "style.css"));
-    const util = webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, "dist", "util.js"));
-    const pets = webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, "dist", "pets.js"));
-    const main = webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, "dist", "main.js"));
-    console.log("pets", pets.toString());
+    const main = webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, "dist", "webview.js"));
 
     return `
       <!DOCTYPE html>
@@ -263,8 +276,6 @@ export class PetViewProvider implements vscode.WebviewViewProvider {
         <div id="pets" background="${config.get("background")}">
         </div>
         <div id="mouse"></div>
-        <script src="${util}"></script>
-        <script src="${pets}"></script>
         <script src="${main}"></script>
       </body>
       </html>

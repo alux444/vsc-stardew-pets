@@ -1,6 +1,8 @@
 import { Vec2, clamp, random } from "./util";
 import { AI } from "./AI";
 import { Animation } from "./Animation";
+import type { Pet as PetType } from "../extension";
+import vscode from "./vscode";
 
 export interface AnimationOptions {
   moveDown?: Animation;
@@ -103,6 +105,11 @@ export class Pet {
     return this.#color;
   }
 
+  #timesPetted: number = 0;
+  get timesPetted(): number {
+    return this.#timesPetted;
+  }
+
   #pos: Vec2 = new Vec2(0, 0);
   get pos(): Vec2 {
     return this.#pos;
@@ -122,9 +129,10 @@ export class Pet {
   #anim?: Animation;
   anims: AnimationOptions = DEFAULT_ANIMATION_OPTIONS;
 
-  constructor(name: string, color: string) {
+  constructor(name: string, color: string, timesPetted: number = 0) {
     this.#name = name;
     this.#color = color;
+    this.#timesPetted = timesPetted;
   }
 
   init(petType: string, aiOptions?: Record<string, unknown>): void {
@@ -144,6 +152,21 @@ export class Pet {
     game.pets.push(this);
     this.#init = true;
     element.onclick = () => this.#ai.click();
+  }
+
+  incrementTimesPetted(): void {
+    this.#timesPetted++;
+    const pet: PetType = {
+      name: this.#name,
+      color: this.#color,
+      petType: this.#petType,
+      timesPetted: this.#timesPetted,
+    }; 
+    console.log("Pet petted", pet);
+    vscode.postMessage({
+      type: "petPetted",
+      pet,
+    });
   }
 
   update(): void {

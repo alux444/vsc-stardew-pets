@@ -1,6 +1,7 @@
 import { Pet } from "./pets";
 import { Cat } from "./pets/Cat";
 import { Vec2 } from "./util";
+import vscode from "./vscode";
 
 console.log("Loaded main");
 // Declare game as global for TS
@@ -32,8 +33,8 @@ window.addEventListener("message", (event: MessageEvent) => {
     case "add":
       switch (message.petType) {
         case "cat":
-          new Cat(message.name, message.color);
-          console.log("Added cat", message.name, message.color);
+          new Cat(message.name, message.color, message.timesPetted);
+          console.log("Added cat", message.name, message.color, message.timesPetted);
           break;
       }
       break;
@@ -76,10 +77,4 @@ game.div.onmousemove = (event) => {
   game.mouse.element.style.top = game.mouse.pos.y + "px";
 };
 
-declare function acquireVsCodeApi(): {
-  postMessage: (msg: any) => void;
-  setState: (state: any) => void;
-  getState: () => any;
-};
-const vscode = acquireVsCodeApi();
 vscode.postMessage({ type: "init" });
