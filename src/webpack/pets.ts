@@ -1,7 +1,7 @@
 import { Vec2, clamp, random } from "./util";
 import { AI } from "./AI";
 import { Animation } from "./Animation";
-import type { Pet as PetType } from "../extension";
+import type { Pet as PetType } from "../extension/pets";
 import vscode from "./vscode";
 
 export interface AnimationOptions {

@@ -43,6 +43,11 @@ window.addEventListener("message", (event: MessageEvent) => {
       pet.element.remove();
       game.pets.splice(message.index, 1);
       break;
+    case "removeAll":
+      console.log("Removing all pets");
+      game.pets.forEach((pet) => pet.element.remove());
+      game.pets.length = 0;
+      break;
     case "background":
       game.div.setAttribute("background", message.value.toLowerCase());
       break;
