@@ -1,5 +1,7 @@
 import { Pet } from "./pets";
 import { Cat } from "./pets/Cat";
+import { Vec2 } from "./util";
+import vscode from "./vscode";
 
 console.log("Loaded main");
 // Declare game as global for TS
@@ -13,6 +15,10 @@ const game = {
   div: document.getElementById("pets")!,
   width: window.innerWidth,
   height: window.innerHeight,
+  mouse: {
+    element: document.getElementById("mouse")!,
+    pos: new Vec2(0, 0),
+  },
   scale: 2,
   frames: 0,
   fps: 30,
@@ -27,8 +33,8 @@ window.addEventListener("message", (event: MessageEvent) => {
     case "add":
       switch (message.petType) {
         case "cat":
-          new Cat(message.name, message.color);
-          console.log("Added cat", message.name, message.color);
+          new Cat(message.name, message.color, message.timesPetted);
+          console.log("Added cat", message.name, message.color, message.timesPetted);
           break;
       }
       break;
@@ -36,6 +42,11 @@ window.addEventListener("message", (event: MessageEvent) => {
       const pet = game.pets[message.index];
       pet.element.remove();
       game.pets.splice(message.index, 1);
+      break;
+    case "removeAll":
+      console.log("Removing all pets");
+      game.pets.forEach((pet) => pet.element.remove());
+      game.pets.length = 0;
       break;
     case "background":
       game.div.setAttribute("background", message.value.toLowerCase());
@@ -65,10 +76,10 @@ function animationLoop(time = 0) {
 }
 animationLoop();
 
-declare function acquireVsCodeApi(): {
-  postMessage: (msg: any) => void;
-  setState: (state: any) => void;
-  getState: () => any;
+game.div.onmousemove = (event) => {
+  game.mouse.pos = new Vec2(event.clientX, event.clientY);
+  game.mouse.element.style.left = game.mouse.pos.x + "px";
+  game.mouse.element.style.top = game.mouse.pos.y + "px";
 };
-const vscode = acquireVsCodeApi();
+
 vscode.postMessage({ type: "init" });

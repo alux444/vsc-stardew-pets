@@ -1,0 +1,47 @@
+import * as fs from "fs";
+import * as path from "path";
+
+export type Pet = {
+  petType: string;
+  name: string;
+  color: string;
+  timesPetted: number;
+};
+
+export let pets: Pet[] = [];
+export let petsPath: string;
+
+export function setPetsPath(folder: string) {
+  petsPath = path.join(folder, "pets.json");
+}
+
+export function updatePetTimesPetted(pet: Pet) {
+  const index = pets.findIndex((p) => p.name === pet.name);
+  if (index !== -1) {
+    pets[index].timesPetted = pet.timesPetted;
+    savePets();
+  }
+}
+
+export function loadPetsFile() {
+  if (!fs.existsSync(petsPath)) {
+    savePets();
+    return;
+  }
+  try {
+    const data = fs.readFileSync(petsPath, "utf8");
+    pets = Array.isArray(JSON.parse(data)) ? JSON.parse(data) : [];
+  } catch {
+    pets = [];
+  }
+}
+
+export function removePet(index: number) {
+  if (index >= 0 && index < pets.length) {
+    pets.splice(index, 1);
+  }
+}
+
+export function savePets() {
+  fs.writeFileSync(petsPath, JSON.stringify(pets, null, 2));
+}

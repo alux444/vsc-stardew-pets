@@ -42,11 +42,13 @@ export class AI {
   }
   #movePos = new Vec2();
 
-  //Moods
-  static #moods = ["happy", "mad", "sad", "blush"];
-  #mood = "happy";
+  #mood = "heart";
   #moodAppearTimeout: any;
-  #moodHeartTimeout: any;
+
+  #petCooldown: number = 0;
+  get petCooldown() {
+    return this.#petCooldown;
+  }
 
   #idleDurationBase = 2 * game.fps;
   #idleDurationVariation = 2 * game.fps;
@@ -128,33 +130,19 @@ export class AI {
     }
   }
 
-  // click() {
-  //   if (game.mouse.hasGift) {
-  //     game.mouse.hasGift = false;
-  //     setMouseType(MouseTypes.none);
-
-  //     this.#setHeartMood();
-  //   }
-
-  //   this.showMood();
-
-  //   this.setState(AI.SPECIAL);
-  // }
-
-  //Mood
-  #setHeartMood() {
-    this.#mood = "heart";
-
-    if (this.#moodHeartTimeout) {
-      clearTimeout(this.#moodHeartTimeout);
+  click() {
+    this.showMood();
+    if (this.#petCooldown > 0) {
+      return;
     }
-    this.#moodHeartTimeout = setTimeout(() => {
-      this.#setRandomMood();
-    }, 10 * 60 * 1000); 
-  }
 
-  #setRandomMood() {
-    this.#mood = AI.#moods[Math.floor(Math.random() * AI.#moods.length)];
+    this.#petCooldown = game.fps * 2;
+    this.showMood();
+
+    // add times petted
+    this.#pet.incrementTimesPetted();
+
+    console.log("Click", this.#mood);
   }
 
   showMood() {

@@ -63,7 +63,9 @@
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
     "test": "vscode-test",
-    "build:webview": "esbuild src/webpack/main.ts --bundle --outfile=dist/main.js --format=iife && esbuild src/webpack/pets.ts --bundle --outfile=dist/pets.js --format=iife && esbuild src/webpack/util.ts --bundle --outfile=dist/util.js --format=iife"
+    "build:webview": "esbuild src/webpack/index.ts --bundle --outfile=dist/webview.js --format=iife",
+    "watch:webview": "esbuild src/webpack/index.ts --bundle --outfile=dist/webview.js --format=iife --watch"
+
   },
   "devDependencies": {
     "@types/vscode": "^1.100.0",
