@@ -128,18 +128,13 @@ export class AI {
     }
   }
 
-  // click() {
-  //   if (game.mouse.hasGift) {
-  //     game.mouse.hasGift = false;
-  //     setMouseType(MouseTypes.none);
+  click() {
+    this.#setHeartMood();
 
-  //     this.#setHeartMood();
-  //   }
+    this.showMood();
 
-  //   this.showMood();
-
-  //   this.setState(AI.SPECIAL);
-  // }
+    console.log("Click", this.#mood);
+  }
 
   //Mood
   #setHeartMood() {

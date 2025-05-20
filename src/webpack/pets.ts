@@ -143,6 +143,7 @@ export class Pet {
     // @ts-expect-error: game is global in the webview context
     game.pets.push(this);
     this.#init = true;
+    element.onclick = () => this.#ai.click();
   }
 
   update(): void {

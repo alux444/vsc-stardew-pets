@@ -1,5 +1,6 @@
 import { Pet } from "./pets";
 import { Cat } from "./pets/Cat";
+import { Vec2 } from "./util";
 
 console.log("Loaded main");
 // Declare game as global for TS
@@ -13,6 +14,10 @@ const game = {
   div: document.getElementById("pets")!,
   width: window.innerWidth,
   height: window.innerHeight,
+  mouse: {
+    element: document.getElementById("mouse")!,
+    pos: new Vec2(0, 0),
+  },
   scale: 2,
   frames: 0,
   fps: 30,
@@ -64,6 +69,12 @@ function animationLoop(time = 0) {
   requestAnimationFrame(animationLoop);
 }
 animationLoop();
+
+game.div.onmousemove = (event) => {
+  game.mouse.pos = new Vec2(event.clientX, event.clientY);
+  game.mouse.element.style.left = game.mouse.pos.x + "px";
+  game.mouse.element.style.top = game.mouse.pos.y + "px";
+};
 
 declare function acquireVsCodeApi(): {
   postMessage: (msg: any) => void;
