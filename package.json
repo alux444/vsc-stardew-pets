@@ -63,7 +63,8 @@
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
     "test": "vscode-test",
-    "build:webview": "esbuild src/webpack/index.ts --bundle --outfile=dist/webview.js --format=iife"
+    "build:webview": "esbuild src/webpack/index.ts --bundle --outfile=dist/webview.js --format=iife",
+    "watch:webview": "esbuild src/webpack/index.ts --bundle --outfile=dist/webview.js --format=iife --watch"
 
   },
   "devDependencies": {
