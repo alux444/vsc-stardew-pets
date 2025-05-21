@@ -55,10 +55,9 @@ body {
 }
 
 /* cats */
-.cat,
-.cat[color="black"] {
+.cat {
   --size: 32px;
-  transform: scale(2);
+  transform: scale(1.5);
   --emoteElevation: -9px;
   --image: url(../../media/pets/cat/black.png);
   background-image: var(--image);
@@ -69,7 +68,12 @@ body {
   image-rendering: pixelated;
 }
 
-cat[color="grey"] {
+.cat[color="black"] {
+  --image: url(../../media/pets/cat/black.png);
+  background-image: var(--image);
+}
+
+.cat[color="grey"] {
   --image: url(../../media/pets/cat/grey.png);
   background-image: var(--image);
 }
