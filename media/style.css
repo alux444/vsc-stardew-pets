@@ -22,7 +22,7 @@ body {
 
   transform: scale(var(--scale));
   background-repeat: repeat;
-  background: url(../../media/backgrounds/grass.png);
+  background: url(./backgrounds/grass.png);
 }
 
 /* base class for pets */
@@ -37,7 +37,7 @@ body {
   left: var(--position-x);
   top: var(--position-y);
 
-  --image: url(../../media/pets/cat/black.png);
+  --image: url(./pets/cat/black.png);
   background-image: var(--image);
   --offset-x: 0px;
   --offset-y: 0px;
@@ -59,7 +59,7 @@ body {
   --size: 32px;
   transform: scale(1.5);
   --emoteElevation: -9px;
-  --image: url(../../media/pets/cat/black.png);
+  --image: url(./pets/cat/black.png);
   background-image: var(--image);
   background-size: auto;
   background-repeat: no-repeat;
@@ -69,32 +69,32 @@ body {
 }
 
 .cat[color="black"] {
-  --image: url(../../media/pets/cat/black.png);
+  --image: url(./pets/cat/black.png);
   background-image: var(--image);
 }
 
 .cat[color="grey"] {
-  --image: url(../../media/pets/cat/grey.png);
+  --image: url(./pets/cat/grey.png);
   background-image: var(--image);
 }
 
 .cat[color="white"] {
-  --image: url(../../media/pets/cat/white.png);
+  --image: url(./pets/cat/white.png);
   background-image: var(--image);
 }
 
 .cat[color="orange"] {
-  --image: url(../../media/pets/cat/orange.png);
+  --image: url(./pets/cat/orange.png);
   background-image: var(--image);
 }
 
 .cat[color="purple"] {
-  --image: url(../../media/pets/cat/purple.png);
+  --image: url(./pets/cat/purple.png);
   background-image: var(--image);
 }
 
 .cat[color="yellow"] {
-  --image: url(../../media/pets/cat/yellow.png);
+  --image: url(./pets/cat/yellow.png);
   background-image: var(--image);
 }
 
@@ -110,7 +110,7 @@ body {
   right: 0;
   bottom: 0;
 
-  background-image: url(../../media/emotes/emotes.png);
+  background-image: url(./emotes/emotes.png);
   background-position-x: var(--emote-x);
   background-position-y: var(--emote-y);
 
@@ -147,7 +147,7 @@ body {
   bottom: 0;
   left: 50%;
 
-  background-image: url(../../media/hearts/0.png);
+  background-image: url(./hearts/0.png);
   background-repeat: no-repeat;
   background-size: contain; /* Or `cover`, depending on your design */
 
@@ -157,47 +157,47 @@ body {
 }
 
 .pet[hearts="0"]::before {
-  background-image: url(../../media/hearts/0.png);
+  background-image: url(./hearts/0.png);
 }
 
 .pet[hearts="1"]::before {
-  background-image: url(../../media/hearts/1.png);
+  background-image: url(./hearts/1.png);
 }
 
 .pet[hearts="2"]::before {
-  background-image: url(../../media/hearts/2.png);
+  background-image: url(./hearts/2.png);
 }
 
 .pet[hearts="3"]::before {
-  background-image: url(../../media/hearts/3.png);
+  background-image: url(./hearts/3.png);
 }
 
 .pet[hearts="4"]::before {
-  background-image: url(../../media/hearts/4.png);
+  background-image: url(./hearts/4.png);
 }
 
 .pet[hearts="5"]::before {
-  background-image: url(../../media/hearts/5.png);
+  background-image: url(./hearts/5.png);
 }
 
 .pet[hearts="6"]::before {
-  background-image: url(../../media/hearts/6.png);
+  background-image: url(./hearts/6.png);
 }
 
 .pet[hearts="7"]::before {
-  background-image: url(../../media/hearts/7.png);
+  background-image: url(./hearts/7.png);
 }
 
 .pet[hearts="8"]::before {
-  background-image: url(../../media/hearts/8.png);
+  background-image: url(./hearts/8.png);
 }
 
 .pet[hearts="9"]::before {
-  background-image: url(../../media/hearts/9.png);
+  background-image: url(./hearts/9.png);
 }
 
 .pet[hearts="10"]::before {
-  background-image: url(../../media/hearts/10.png);
+  background-image: url(./hearts/10.png);
 }
 
 .pet:hover::before {

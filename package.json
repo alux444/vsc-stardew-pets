@@ -3,7 +3,7 @@
   "displayName": "vscode-stardew",
   "description": "pets from stardew :)",
   "publisher": "alux444",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.100.0"
   },
@@ -65,8 +65,9 @@
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
     "test": "vscode-test",
-    "build:webview": "esbuild src/webpack/index.ts --bundle --outfile=dist/webview.js --format=iife",
-    "watch:webview": "esbuild src/webpack/index.ts --bundle --outfile=dist/webview.js --format=iife --watch"
+    "build:extension": "esbuild src/extension.ts --bundle --outfile=dist/extension.js",
+    "build:webview": "esbuild src/webpack/index.ts --bundle --outfile=media/webview.js --format=iife",
+    "watch:webview": "esbuild src/webpack/index.ts --bundle --outfile=media/webview.js --format=iife --watch"
 
   },
   "devDependencies": {

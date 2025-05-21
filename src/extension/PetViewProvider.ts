@@ -50,8 +50,9 @@ export class PetViewProvider implements vscode.WebviewViewProvider {
   }
 
   private getHtmlContent(webview: vscode.Webview): string {
-    const style = webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, "src", "webpack", "style.css"));
-    const main = webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, "dist", "webview.js"));
+    const style = webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, "media", "style.css"));
+    console.log(style.toString());
+    const main = webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, "media", "webview.js"));
 
     return `
       <!DOCTYPE html>
