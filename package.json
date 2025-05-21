@@ -1,7 +1,8 @@
 {
   "name": "vscode-stardew-pets",
-  "displayName": "vscode-stardew-pets",
+  "displayName": "vscode-stardew",
   "description": "pets from stardew :)",
+  "publisher": "alux444",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.100.0"
@@ -9,6 +10,7 @@
   "categories": [
     "Other"
   ],
+  "icon": "./image.png",
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {

@@ -4,6 +4,6 @@ All notable changes to the "vscode-stardew-pets" extension will be documented in
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased]
+## [0.0.1]
 
-- Initial release
+- Added extension with some cats and basic petting system :)
