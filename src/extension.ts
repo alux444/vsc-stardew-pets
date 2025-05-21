@@ -4,7 +4,7 @@ import { setPetsPath, loadPetsFile } from "./extension/pets";
 import { setWebview, updateBackground, updateScale } from "./extension/webview";
 import { registerCommands } from "./extension/commands";
 
-const PET_TYPES = { cat: ["black"] };
+const PET_TYPES = { cat: ["black", "grey", "orange", "purple", "white", "yellow"] };
 
 export function activate(context: vscode.ExtensionContext) {
   console.log("Stardew Pets is now active");

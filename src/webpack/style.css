@@ -69,6 +69,31 @@ body {
   image-rendering: pixelated;
 }
 
+cat[color="grey"] {
+  --image: url(../../media/pets/cat/grey.png);
+  background-image: var(--image);
+}
+
+.cat[color="white"] {
+  --image: url(../../media/pets/cat/white.png);
+  background-image: var(--image);
+}
+
+.cat[color="orange"] {
+  --image: url(../../media/pets/cat/orange.png);
+  background-image: var(--image);
+}
+
+.cat[color="purple"] {
+  --image: url(../../media/pets/cat/purple.png);
+  background-image: var(--image);
+}
+
+.cat[color="yellow"] {
+  --image: url(../../media/pets/cat/yellow.png);
+  background-image: var(--image);
+}
+
 .pet::after {
   content: "";
 
