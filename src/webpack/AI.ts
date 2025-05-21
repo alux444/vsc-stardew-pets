@@ -72,6 +72,8 @@ export class AI {
   constructor(pet: Pet, options: PetBehaviorOptions = {}) {
     // Save linked pet
     this.#pet = pet;
+    const timesPetted = Math.min(10, pet.timesPetted);
+    this.#pet.element.setAttribute("hearts", timesPetted.toString());
 
     // Random mood
     // this.#setRandomMood();
@@ -141,6 +143,8 @@ export class AI {
 
     // add times petted
     this.#pet.incrementTimesPetted();
+    const timesPetted = Math.min(10, this.#pet.timesPetted);
+    this.#pet.element.setAttribute("hearts", timesPetted.toString());
 
     console.log("Click", this.#mood);
   }

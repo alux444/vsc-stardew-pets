@@ -102,30 +102,70 @@ body {
   --emote-x: calc(-1 * var(--emoteSize));
   --emote-y: calc(-3 * var(--emoteSize));
 }
-
-.pet:hover::before {
+.pet::before {
   content: "";
-  position: absolute;
-  left: 50%;
-  top: 100%;
-  transform: translateX(-50%) translateY(4px); /* Center below pet, adjust Y as needed */
-  width: calc(var(--emoteSize) * 5 + 4px * 4); /* 5 hearts + 4px gap between each */
+
+  /* Set to actual size of 5hearts.png, for example: */
+  width: calc(var(--emoteSize) * 5);
   height: var(--emoteSize);
-  display: flex;
+
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+
+  background-image: url(../../media/hearts/0.png);
+  background-repeat: no-repeat;
+  background-size: contain; /* Or `cover`, depending on your design */
+
+  transform: translateX(-50%) translateY(calc(var(--size) + var(--emoteElevation)));
   pointer-events: none;
-  z-index: 1;
+  opacity: 0;
+}
+
+.pet[hearts="0"]::before {
+  background-image: url(../../media/hearts/0.png);
+}
+
+.pet[hearts="1"]::before {
+  background-image: url(../../media/hearts/1.png);
+}
+
+.pet[hearts="2"]::before {
+  background-image: url(../../media/hearts/2.png);
+}
+
+.pet[hearts="3"]::before {
+  background-image: url(../../media/hearts/3.png);
+}
+
+.pet[hearts="4"]::before {
+  background-image: url(../../media/hearts/4.png);
+}
+
+.pet[hearts="5"]::before {
+  background-image: url(../../media/hearts/5.png);
+}
+
+.pet[hearts="6"]::before {
+  background-image: url(../../media/hearts/6.png);
+}
+
+.pet[hearts="7"]::before {
+  background-image: url(../../media/hearts/7.png);
+}
+
+.pet[hearts="8"]::before {
+  background-image: url(../../media/hearts/8.png);
+}
+
+.pet[hearts="9"]::before {
+  background-image: url(../../media/hearts/9.png);
+}
+
+.pet[hearts="10"]::before {
+  background-image: url(../../media/hearts/10.png);
 }
 
 .pet:hover::before {
-  border: 1px solid green;
-  /* Use a linear-gradient mask to create 5 hearts, or use multiple backgrounds: */
-  background-image: url(../../media/emotes/emotes.png), url(../../media/emotes/emotes.png), url(../../media/emotes/emotes.png), url(../../media/emotes/emotes.png), url(../../media/emotes/emotes.png);
-  background-repeat: no-repeat;
-  background-size: var(--emoteSize) var(--emoteSize);
-  background-position: 0px 0px, calc(var(--emoteSize) + 4px) 0px, calc(var(--emoteSize) * 2 + 8px) 0px, calc(var(--emoteSize) * 3 + 12px) 0px, calc(var(--emoteSize) * 4 + 16px) 0px;
-  /* Set the grayscale heart offset here: */
-  filter: grayscale(1);
-  /* Adjust the background-position-y to match the grayscale heart in your sprite */
-  /* Example: if grayscale heart is at row 4, use: */
-  background-position-y: calc(-4 * var(--emoteSize));
+  opacity: 1;
 }
