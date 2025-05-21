@@ -127,6 +127,11 @@ body {
   opacity: 1;
 }
 
+.pet[mood="happy"] {
+  --emote-x: calc(-0 * var(--emoteSize));
+  --emote-y: calc(-0 * var(--emoteSize));
+}
+
 .pet[mood="heart"] {
   --emote-x: calc(-1 * var(--emoteSize));
   --emote-y: calc(-3 * var(--emoteSize));

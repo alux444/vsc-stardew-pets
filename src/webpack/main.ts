@@ -33,8 +33,8 @@ window.addEventListener("message", (event: MessageEvent) => {
     case "add":
       switch (message.petType) {
         case "cat":
-          new Cat(message.name, message.color, message.timesPetted);
-          console.log("Added cat", message.name, message.color, message.timesPetted);
+          new Cat(message.name, message.color, message.timesPetted, message.nextPettable);
+          console.log("Added cat", message.name, message.color, message.timesPetted, message.nextPettable);
           break;
       }
       break;

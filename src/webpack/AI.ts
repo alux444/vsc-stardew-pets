@@ -133,14 +133,14 @@ export class AI {
   }
 
   click() {
+    this.#mood = "happy";
     this.showMood();
-    if (this.#petCooldown > 0) {
+    if (new Date(this.#pet.nextPettable) > new Date(Date.now())) {
       return;
     }
 
-    this.#petCooldown = game.fps * 2;
+    this.#mood = "heart";
     this.showMood();
-
     // add times petted
     this.#pet.incrementTimesPetted();
     const timesPetted = Math.min(10, this.#pet.timesPetted);
