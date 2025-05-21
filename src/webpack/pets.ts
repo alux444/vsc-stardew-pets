@@ -110,6 +110,11 @@ export class Pet {
     return this.#timesPetted;
   }
 
+  #nextPettable: Date = new Date(Date.now());
+  get nextPettable(): Date {
+    return this.#nextPettable;
+  }
+
   #pos: Vec2 = new Vec2(0, 0);
   get pos(): Vec2 {
     return this.#pos;
@@ -129,10 +134,11 @@ export class Pet {
   #anim?: Animation;
   anims: AnimationOptions = DEFAULT_ANIMATION_OPTIONS;
 
-  constructor(name: string, color: string, timesPetted: number = 0) {
+  constructor(name: string, color: string, timesPetted: number = 0, nextPettable: Date = new Date(Date.now())) {
     this.#name = name;
     this.#color = color;
     this.#timesPetted = timesPetted;
+    this.#nextPettable = nextPettable;
   }
 
   init(petType: string, aiOptions?: Record<string, unknown>): void {
@@ -156,13 +162,15 @@ export class Pet {
 
   incrementTimesPetted(): void {
     this.#timesPetted++;
+    const FIFTEEN_MINUTES = 1000 * 60 * 15;
+    this.#nextPettable = new Date(Date.now() + FIFTEEN_MINUTES);
     const pet: PetType = {
       name: this.#name,
       color: this.#color,
       petType: this.#petType,
       timesPetted: this.#timesPetted,
+      nextPettable: this.#nextPettable,
     }; 
-    console.log("Pet petted", pet);
     vscode.postMessage({
       type: "petPetted",
       pet,

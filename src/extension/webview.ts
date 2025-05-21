@@ -14,6 +14,7 @@ export function loadPet(pet: Pet) {
     name: pet.name,
     color: pet.color,
     timesPetted: pet.timesPetted,
+    nextPettable: pet.nextPettable,
   });
 }
 

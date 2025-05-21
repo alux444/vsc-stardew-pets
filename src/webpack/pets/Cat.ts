@@ -80,8 +80,8 @@ export class Cat extends Pet {
       ),
     ],
   };
-  constructor(name: string, color: string, timesPetted: number = 0) {
-    super(name, color, timesPetted);
+  constructor(name: string, color: string, timesPetted: number = 0, nextPettable: Date = new Date()) {
+    super(name, color, timesPetted, nextPettable);
     this.init("cat");
   }
 }

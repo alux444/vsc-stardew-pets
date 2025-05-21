@@ -6,6 +6,7 @@ export type Pet = {
   name: string;
   color: string;
   timesPetted: number;
+  nextPettable: Date;
 };
 
 export let pets: Pet[] = [];
@@ -13,12 +14,14 @@ export let petsPath: string;
 
 export function setPetsPath(folder: string) {
   petsPath = path.join(folder, "pets.json");
+  console.log("Pets path set to", petsPath);
 }
 
 export function updatePetTimesPetted(pet: Pet) {
   const index = pets.findIndex((p) => p.name === pet.name);
   if (index !== -1) {
     pets[index].timesPetted = pet.timesPetted;
+    pets[index].nextPettable = pet.nextPettable;
     savePets();
   }
 }
@@ -30,7 +33,12 @@ export function loadPetsFile() {
   }
   try {
     const data = fs.readFileSync(petsPath, "utf8");
-    pets = Array.isArray(JSON.parse(data)) ? JSON.parse(data) : [];
+    const loaded = Array.isArray(JSON.parse(data)) ? JSON.parse(data) : [];
+    pets = loaded.map((pet: any) => ({
+      ...pet,
+      nextPettable: new Date(pet.nextPettable),
+    }));
+    console.log("Loaded pets", pets);
   } catch {
     pets = [];
   }

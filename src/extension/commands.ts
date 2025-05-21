@@ -44,6 +44,7 @@ export function registerCommands(context: vscode.ExtensionContext, PET_TYPES: { 
       name,
       color: variant,
       timesPetted: 0,
+      nextPettable: new Date(Date.now()),
     });
     savePets();
     loadPet(pets[pets.length - 1]);
