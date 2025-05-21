@@ -14,7 +14,10 @@ export let petsPath: string;
 
 export function setPetsPath(folder: string) {
   petsPath = path.join(folder, "pets.json");
-  console.log("Pets path set to", petsPath);
+  const dir = path.dirname(petsPath);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
 }
 
 export function updatePetTimesPetted(pet: Pet) {
@@ -29,7 +32,6 @@ export function updatePetTimesPetted(pet: Pet) {
 export function loadPetsFile() {
   if (!fs.existsSync(petsPath)) {
     savePets();
-    return;
   }
   try {
     const data = fs.readFileSync(petsPath, "utf8");
