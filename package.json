@@ -3,13 +3,23 @@
   "displayName": "vscode-stardew",
   "description": "pets from stardew :)",
   "publisher": "alux444",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "engines": {
     "vscode": "^1.100.0"
+  },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/alux444/vsc-stardew-pets"
   },
   "categories": [
     "Other"
   ],
+  "keywords": [
+        "pet",
+        "cat",
+        "stardew",
+        "stardew valley"
+    ],
   "icon": "./image.png",
   "activationEvents": [],
   "main": "./dist/extension.js",
@@ -68,7 +78,6 @@
     "build:extension": "esbuild src/extension.ts --bundle --outfile=dist/extension.js",
     "build:webview": "esbuild src/webpack/index.ts --bundle --outfile=media/webview.js --format=iife",
     "watch:webview": "esbuild src/webpack/index.ts --bundle --outfile=media/webview.js --format=iife --watch"
-
   },
   "devDependencies": {
     "@types/vscode": "^1.100.0",
