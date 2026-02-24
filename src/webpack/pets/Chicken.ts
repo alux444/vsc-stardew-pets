@@ -1,5 +1,13 @@
 import { Animation } from "../Animation";
 import { PetSmall } from "../pets";
+import { Vec2 } from "../util";
+
+const OFFSETS: Record<string, Vec2> = {
+  "white adult": new Vec2(0, 0),
+  "blue adult": new Vec2(128, 0),
+  "brown adult": new Vec2(256, 0),
+  "black adult": new Vec2(384, 0),
+};
 
 export class Chicken extends PetSmall {
   override anims = {
@@ -14,6 +22,7 @@ export class Chicken extends PetSmall {
 
   constructor(name: string, color: string, timesPetted: number = 0, nextPettable: Date = new Date()) {
     super(name, color, timesPetted, nextPettable);
+    this.spriteSheetOffset = OFFSETS[color] ?? new Vec2(0, 0);
     this.init("chicken");
   }
 }

@@ -4,6 +4,14 @@ All notable changes to the "vscode-stardew-pets" extension will be documented in
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.0.7]
+
+- Add back some variations
+
+## [0.0.6]
+
+- Animation bugfixes
+
 ## [0.0.5]
 
 - Added new pets!!
