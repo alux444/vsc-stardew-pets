@@ -1,5 +1,19 @@
 import { Pet } from "./pets";
 import { Cat } from "./pets/Cat";
+import { Dog } from "./pets/Dog";
+import { Turtle } from "./pets/Turtle";
+import { Dino } from "./pets/Dino";
+import { Duck } from "./pets/Duck";
+import { Raccoon } from "./pets/Raccoon";
+import { Goat } from "./pets/Goat";
+import { Sheep } from "./pets/Sheep";
+import { Ostrich } from "./pets/Ostrich";
+import { Pig } from "./pets/Pig";
+import { Rabbit } from "./pets/Rabbit";
+import { Chicken } from "./pets/Chicken";
+import { Cow } from "./pets/Cow";
+import { Parrot } from "./pets/Parrot";
+import { Junimo } from "./pets/Junimo";
 import { Vec2 } from "./util";
 import vscode from "./vscode";
 
@@ -27,17 +41,35 @@ const game = {
 window.game = game;
 console.log("Loaded frame");
 
+const PET_CLASSES: Record<string, new (name: string, color: string, timesPetted: number, nextPettable: Date) => Pet> = {
+  cat: Cat,
+  dog: Dog,
+  turtle: Turtle,
+  dino: Dino,
+  duck: Duck,
+  raccoon: Raccoon,
+  goat: Goat,
+  sheep: Sheep,
+  ostrich: Ostrich,
+  pig: Pig,
+  rabbit: Rabbit,
+  chicken: Chicken,
+  cow: Cow,
+  parrot: Parrot,
+  junimo: Junimo,
+};
+
 window.addEventListener("message", (event: MessageEvent) => {
   const message = event.data;
   switch (message.type.toLowerCase()) {
-    case "add":
-      switch (message.petType) {
-        case "cat":
-          new Cat(message.name, message.color, message.timesPetted, message.nextPettable);
-          console.log("Added cat", message.name, message.color, message.timesPetted, message.nextPettable);
-          break;
+    case "add": {
+      const PetClass = PET_CLASSES[message.petType];
+      if (PetClass) {
+        new PetClass(message.name, message.color, message.timesPetted, message.nextPettable);
+        console.log("Added", message.petType, message.name, message.color, message.timesPetted, message.nextPettable);
       }
       break;
+    }
     case "remove":
       const pet = game.pets[message.index];
       pet.element.remove();

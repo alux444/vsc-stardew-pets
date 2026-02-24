@@ -87,7 +87,7 @@ export class AI {
     }
 
     // Sleep options
-    if (!!options.canSleep) {
+    if (options.canSleep !== undefined) {
       this.#canSleep = options.canSleep;
     }
     if (options.sleepDurationBase) {

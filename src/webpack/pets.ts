@@ -10,7 +10,7 @@ export interface AnimationOptions {
   moveUp?: Animation;
   moveLeft?: Animation;
   idle?: Animation;
-  special?: Animation;
+  special?: Animation | Animation[];
   sleep?: Animation | Animation[];
 }
 
@@ -130,6 +130,7 @@ export class Pet {
     return this.#element;
   }
   size: Vec2 = new Vec2(32, 32);
+  spriteSheetOffset: Vec2 = new Vec2(0, 0);
 
   #anim?: Animation;
   anims: AnimationOptions = DEFAULT_ANIMATION_OPTIONS;
@@ -194,8 +195,8 @@ export class Pet {
   }
 
   #selectSprite(offset: [number, number]): void {
-    this.#element.style.setProperty("--offset-x", -(offset[0] * this.size.x) + "px");
-    this.#element.style.setProperty("--offset-y", -(offset[1] * this.size.y) + "px");
+    this.#element.style.setProperty("--offset-x", -(offset[0] * this.size.x + this.spriteSheetOffset.x) + "px");
+    this.#element.style.setProperty("--offset-y", -(offset[1] * this.size.y + this.spriteSheetOffset.y) + "px");
   }
 
   get maxX(): number {
@@ -229,9 +230,16 @@ export class Pet {
   }
 }
 
-class PetSmall extends Pet {
+export class PetSmall extends Pet {
   size: Vec2 = new Vec2(16, 16);
-  constructor(name: string, color: string) {
-    super(name, color);
+  constructor(name: string, color: string, timesPetted: number = 0, nextPettable: Date = new Date()) {
+    super(name, color, timesPetted, nextPettable);
+  }
+}
+
+export class PetMedium extends Pet {
+  size: Vec2 = new Vec2(24, 24);
+  constructor(name: string, color: string, timesPetted: number = 0, nextPettable: Date = new Date()) {
+    super(name, color, timesPetted, nextPettable);
   }
 }
