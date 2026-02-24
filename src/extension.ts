@@ -7,19 +7,11 @@ import { registerCommands } from "./extension/commands";
 const PET_TYPES: Record<string, string[]> = {
   cat: ["black", "grey", "orange", "purple", "white", "yellow"],
   dog: ["blonde", "gray", "brown", "dark brown", "light brown", "purple"],
-  turtle: ["green", "purple"],
-  dino: [],
   duck: [],
   raccoon: [],
-  goat: ["adult", "baby"],
-  sheep: ["adult", "baby"],
-  ostrich: ["adult", "baby"],
-  pig: ["adult", "baby"],
-  rabbit: ["adult", "baby"],
-  chicken: ["white adult", "white baby", "blue adult", "blue baby", "brown adult", "brown baby", "black adult", "black baby"],
   cow: ["white adult", "white baby", "brown adult", "brown baby"],
-  parrot: ["green adult", "green baby", "blue adult", "blue baby", "golden joja"],
-  junimo: ["white", "black", "gray", "pink", "red", "orange", "yellow", "green", "cyan", "purple", "brown"],
+  pig: ["adult", "baby"],
+  chicken: ["white adult", "blue adult", "brown adult", "black adult"],
 };
 
 export function activate(context: vscode.ExtensionContext) {

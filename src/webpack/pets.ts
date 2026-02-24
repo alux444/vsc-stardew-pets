@@ -237,9 +237,3 @@ export class PetSmall extends Pet {
   }
 }
 
-export class PetMedium extends Pet {
-  size: Vec2 = new Vec2(24, 24);
-  constructor(name: string, color: string, timesPetted: number = 0, nextPettable: Date = new Date()) {
-    super(name, color, timesPetted, nextPettable);
-  }
-}
