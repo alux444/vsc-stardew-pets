@@ -18,9 +18,9 @@ export class Vec2 {
   x: number = 0;
   y: number = 0;
 
-  constructor(x: number = 0, y: number = 0) {
+  constructor(x: number = 0, y?: number) {
     this.x = x;
-    this.y = y !== 0 ? y : this.x;
+    this.y = y !== undefined ? y : this.x;
   }
 
   clone(): Vec2 {

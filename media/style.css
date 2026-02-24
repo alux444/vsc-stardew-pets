@@ -28,6 +28,7 @@ body {
 /* base class for pets */
 .pet {
   --size: 32px;
+  --pet-scale: 1;
   width: var(--size);
   height: var(--size);
 
@@ -45,19 +46,22 @@ body {
   background-position-y: var(--offset-y);
 
   --emoteSize: 9px;
+  --heartSize: 13px;
   --emoteElevation: 0px;
   --emote-x: 0px;
   --emote-y: 0px;
+
+  transform: scale(var(--pet-scale));
 }
 
 .pet[flip] {
-  transform: scale(-1, 1);
+  transform: scale(calc(-1 * var(--pet-scale)), var(--pet-scale));
 }
 
 /* cats */
 .cat {
   --size: 32px;
-  transform: scale(1.5);
+  --pet-scale: 1.5;
   --emoteElevation: -9px;
   --image: url(./pets/cat/black.png);
   background-image: var(--image);
@@ -101,37 +105,9 @@ body {
 /* dogs */
 .dog {
   --size: 32px;
-  transform: scale(1.5);
+  --pet-scale: 1.5;
   --emoteElevation: -4px;
   --image: url(./pets/dog.png);
-  background-image: var(--image);
-  background-size: auto;
-  background-repeat: no-repeat;
-  background-position-x: var(--offset-x);
-  background-position-y: var(--offset-y);
-  image-rendering: pixelated;
-}
-
-/* turtles */
-.turtle {
-  --size: 32px;
-  transform: scale(1.5);
-  --emoteElevation: -2px;
-  --image: url(./pets/turtle.png);
-  background-image: var(--image);
-  background-size: auto;
-  background-repeat: no-repeat;
-  background-position-x: var(--offset-x);
-  background-position-y: var(--offset-y);
-  image-rendering: pixelated;
-}
-
-/* dino */
-.dino {
-  --size: 16px;
-  transform: scale(2.5);
-  --emoteElevation: 10px;
-  --image: url(./pets/dino.png);
   background-image: var(--image);
   background-size: auto;
   background-repeat: no-repeat;
@@ -143,7 +119,7 @@ body {
 /* duck */
 .duck {
   --size: 16px;
-  transform: scale(2.5);
+  --pet-scale: 2;
   --emoteElevation: 8px;
   --image: url(./pets/duck.png);
   background-image: var(--image);
@@ -157,51 +133,9 @@ body {
 /* raccoon */
 .raccoon {
   --size: 32px;
-  transform: scale(1.5);
+  --pet-scale: 1.5;
   --emoteElevation: -4px;
   --image: url(./pets/raccoon.png);
-  background-image: var(--image);
-  background-size: auto;
-  background-repeat: no-repeat;
-  background-position-x: var(--offset-x);
-  background-position-y: var(--offset-y);
-  image-rendering: pixelated;
-}
-
-/* goat */
-.goat {
-  --size: 32px;
-  transform: scale(1.5);
-  --emoteElevation: -7px;
-  --image: url(./pets/goat.png);
-  background-image: var(--image);
-  background-size: auto;
-  background-repeat: no-repeat;
-  background-position-x: var(--offset-x);
-  background-position-y: var(--offset-y);
-  image-rendering: pixelated;
-}
-
-/* sheep */
-.sheep {
-  --size: 32px;
-  transform: scale(1.5);
-  --emoteElevation: -3px;
-  --image: url(./pets/sheep.png);
-  background-image: var(--image);
-  background-size: auto;
-  background-repeat: no-repeat;
-  background-position-x: var(--offset-x);
-  background-position-y: var(--offset-y);
-  image-rendering: pixelated;
-}
-
-/* ostrich */
-.ostrich {
-  --size: 32px;
-  transform: scale(1.5);
-  --emoteElevation: -10px;
-  --image: url(./pets/ostrich.png);
   background-image: var(--image);
   background-size: auto;
   background-repeat: no-repeat;
@@ -213,23 +147,9 @@ body {
 /* pig */
 .pig {
   --size: 32px;
-  transform: scale(1.5);
+  --pet-scale: 1.5;
   --emoteElevation: -8px;
   --image: url(./pets/pig.png);
-  background-image: var(--image);
-  background-size: auto;
-  background-repeat: no-repeat;
-  background-position-x: var(--offset-x);
-  background-position-y: var(--offset-y);
-  image-rendering: pixelated;
-}
-
-/* rabbit */
-.rabbit {
-  --size: 16px;
-  transform: scale(2.5);
-  --emoteElevation: 10px;
-  --image: url(./pets/rabbit.png);
   background-image: var(--image);
   background-size: auto;
   background-repeat: no-repeat;
@@ -241,7 +161,7 @@ body {
 /* chicken */
 .chicken {
   --size: 16px;
-  transform: scale(2.5);
+  --pet-scale: 2;
   --emoteElevation: 10px;
   --image: url(./pets/chicken.png);
   background-image: var(--image);
@@ -255,7 +175,7 @@ body {
 /* cow */
 .cow {
   --size: 32px;
-  transform: scale(1.5);
+  --pet-scale: 1.5;
   --emoteElevation: -3px;
   --image: url(./pets/cow.png);
   background-image: var(--image);
@@ -266,33 +186,6 @@ body {
   image-rendering: pixelated;
 }
 
-/* parrot */
-.parrot {
-  --size: 24px;
-  transform: scale(2);
-  --emoteElevation: -7px;
-  --image: url(./pets/parrot.png);
-  background-image: var(--image);
-  background-size: auto;
-  background-repeat: no-repeat;
-  background-position-x: var(--offset-x);
-  background-position-y: var(--offset-y);
-  image-rendering: pixelated;
-}
-
-/* junimo */
-.junimo {
-  --size: 16px;
-  transform: scale(2.5);
-  --emoteElevation: 9px;
-  --image: url(./pets/junimo.png);
-  background-image: var(--image);
-  background-size: auto;
-  background-repeat: no-repeat;
-  background-position-x: var(--offset-x);
-  background-position-y: var(--offset-y);
-  image-rendering: pixelated;
-}
 
 .pet::after {
   content: "";
@@ -312,11 +205,15 @@ body {
 
   --translation-x: calc((var(--size) - var(--emoteSize)) / 2);
   --translation-y: calc(-1 * var(--emoteSize) - var(--emoteElevation));
-  transform: translateX(var(--translation-x)) translateY(var(--translation-y));
+  transform: translateX(var(--translation-x)) translateY(var(--translation-y)) scale(calc(1 / var(--pet-scale)));
   transform-origin: center;
 
   pointer-events: none;
   opacity: 0;
+}
+
+.pet[flip]::after {
+  transform: translateX(var(--translation-x)) translateY(var(--translation-y)) scale(calc(-1 / var(--pet-scale)), calc(1 / var(--pet-scale)));
 }
 
 .pet[mood]::after {
@@ -335,9 +232,8 @@ body {
 .pet::before {
   content: "";
 
-  /* Set to actual size of 5hearts.png, for example: */
-  width: calc(var(--emoteSize) * 5);
-  height: var(--emoteSize);
+  width: calc(var(--heartSize) * 5);
+  height: var(--heartSize);
 
   position: absolute;
   bottom: 0;
@@ -347,9 +243,13 @@ body {
   background-repeat: no-repeat;
   background-size: contain; /* Or `cover`, depending on your design */
 
-  transform: translateX(-50%) translateY(calc(var(--size) + var(--emoteElevation)));
+  transform: translateX(-50%) translateY(calc(var(--size) + var(--emoteElevation))) scale(calc(1 / var(--pet-scale)));
   pointer-events: none;
   opacity: 0;
+}
+
+.pet[flip]::before {
+  transform: translateX(-50%) translateY(calc(var(--size) + var(--emoteElevation))) scale(calc(-1 / var(--pet-scale)), calc(1 / var(--pet-scale)));
 }
 
 .pet[hearts="0"]::before {

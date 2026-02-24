@@ -5,8 +5,6 @@ import { Vec2 } from "../util";
 const OFFSETS: Record<string, Vec2> = {
   "white adult": new Vec2(0, 0),
   "white baby": new Vec2(128, 0),
-  "brown adult": new Vec2(256, 0),
-  "brown baby": new Vec2(384, 0),
 };
 
 export class Cow extends Pet {
